@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -15,9 +16,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('admin'),
-            'is_admin' => 1,
-            'created_at' => new \Datetime(),
-            'updated_at' => new \Datetime(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }

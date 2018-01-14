@@ -9,8 +9,7 @@ html, body {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    height: 100%;
+    /* font-family: Arial, sans-serif; */
 }
 
 .container {
@@ -20,6 +19,15 @@ body {
     margin: 0 auto;
 }
 
+header {
+    color: #fff;
+    background: #0082BA;
+}
+
+header h1 {
+    font-weight: bold;
+}
+
 footer {
     position: absolute
     width: 100%;
@@ -27,6 +35,12 @@ footer {
     bottom: 0;
     background-color: #f8f8f8;
 }
+
+form > * {
+    display: block;
+    margin-bottom: 5px;
+}
+
 
 /* ==== Login page ==== */
 

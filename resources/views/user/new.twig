@@ -1,0 +1,46 @@
+{% extends 'base.twig' %}
+
+{% block title %}Панель администратора{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 aside">
+                <h3>Меню</h3>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="">Пользователи</a></li>
+                    <li><a href="">Темы</a></li>
+                    <li><a href="">Вопросы</a></li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <h2>Панель администратора</h2>
+                <hr>
+                <h3>Пользователи</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>id</th>
+                            <th>Имя</th>
+                            <th>E-mail</th>
+                            <th>Пароль</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{u.id}}</td>
+                            <td>{{u.name}}</td>
+                            <td>{{u.email}}</td>
+                            <td>{{u.password}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>      
+{% endblock %}   

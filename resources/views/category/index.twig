@@ -1,0 +1,60 @@
+{% extends 'base.twig' %}
+
+{% block title %}Панель администратора{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 aside">
+                <h3>Меню</h3>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="">Пользователи</a></li>
+                    <li class="active"><a href="">Темы</a></li>
+                    <li><a href="">Вопросы</a></li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <h2>Панель администратора</h2>
+                <hr>
+                <h3>Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить пользователя"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> </h3>
+                <table class="table table-striped">
+                    <thead>
+                        <colgroup span="3"></colgroup>
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>id</th>
+                            <th>Название</th>
+                            <th>Вопросов</th>
+                            {# <th scope="colgroup">Всего</th> #}
+                            <th>Скрытых</th>
+                            <th>Неотвеченных</th>        
+                        </tr>
+                        <tr>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in categories %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{c.id}}</td>
+                            <td>{{c.title}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <form action="{{route('category.destroy', {'id' : c.id})}}" method="post" accept-charset="utf-8">
+                                    {{ method_field('delete') }}
+                                    <input type="hidden" name="id" value="{{user.id}}">      
+                                    <input type="submit" class="btn btn-danger" name="submit" value="Удалить">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>      
+{% endblock %}   

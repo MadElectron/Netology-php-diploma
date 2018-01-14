@@ -1,0 +1,16 @@
+{% extends 'base.twig' %}
+
+{% block title %}Новый пользователь{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Новый пользователь</h2> 
+    <hr>
+    <form method="get" action="" accept-charset="utf8">
+        <input type="text" name="name" value="" placeholder="Имя пользователя" id="form_name" required>
+        <input type="email" name="email" value="" placeholder="E-mail" id="form_email" required>
+        <input type="password" name="password" value="" placeholder="Пароль" id="form_password" required>
+        <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
+    </form>
+</div>   
+{% endblock %}   

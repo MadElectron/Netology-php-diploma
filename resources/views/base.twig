@@ -4,10 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <header></header>
+    <header>
+        <div class="container">
+            <h1>FAQ</h1>
+        </div>
+    </header>
     
     {% block content %}
     {% endblock %}
@@ -19,3 +25,6 @@
     </footer>
 </body>
 </html>
+{% block javascripts %}
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8" async defer></script>
+{% endblock %}
