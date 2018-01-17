@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+
+{% block title %}Новая тема{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Задать вопрос</h2> 
+    <hr>
+    <form method="get" action="" accept-charset="utf8">
+        <input type="text" name="name" value="" placeholder="Ваше имя" required>
+        <input type="email" name="email" value="" placeholder="Ваш E-mail" required>
+        <select name="category"required>
+            <option value="" disabled selected>Выберите тему</option>
+
+            {% for c in categories %}
+                <option value="{{c.id}}">{{c.title}}</option>
+            {% endfor %}
+        </select>
+        <textarea name="content" value="" placeholder="Содержание вопроса" id="form_title" required></textarea>
+        <input type="submit" name="submit" value="Отправить" class="btn btn-success">
+    </form>
+</div>   
+{% endblock %}   

@@ -9,39 +9,42 @@
                 <h3>Меню</h3>
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="">Пользователи</a></li>
-                    <li class="active"><a href="">Темы</a></li>
-                    <li><a href="">Вопросы</a></li>                    
+                    <li><a href="">Темы</a></li>
+                    <li class="active"><a href="">Вопросы</a></li>                    
                 </ul>
             </div>
             <div class="col-md-10">
                 <h2>Панель администратора</h2>
                 <hr>
-                <h3>Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить пользователя"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> </h3>
+                <h3>Вопросы</h3>
                 <table class="table table-striped">
                     <thead>
-                        <colgroup span="3"></colgroup>
                         <tr>
                             <th>№ п/п</th>
                             <th>id</th>
-                            <th>Название</th>
-                            <th>Вопросов</th>
-                            <th>Скрытых</th>
-                            <th>Неотвеченных</th>
+                            <th>Содержание</th>
+                            <th>Автор</th>
+                            <th>Создан</th>
+                            <th>Статус</th>
+                            <th></th>        
+                        </tr>
+                        <tr>
+
                         </tr>
                     </thead>
                     <tbody>
-                        {% for c in categories %}
+                        {% for q in questions %}
                         <tr>
                             <td>{{loop.index}}</td>
-                            <td>{{c.id}}</td>
-                            <td><a href="{{route('question.index_by_category', {'id' : c.id})}}">{{c.title}}</a></td>
-                            <td>{{c.answers|length}}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{q.id}}</td>
+                            <td>{{q.content}}</td>
+                            <td>{{q.author_name}} (<a href="mailto:{{q.author_email}}">{{q.author_email}}</a>)</td>
+                            <td>{{q.created_at|date('d.m.y')}}</td>
+                            <td>{{q.status}}</td>
                             <td>
-                                <a href="{{route('category.edit', {'id' : c.id})}}" class="btn btn-success">Редактировать</a>
+                                <a href="{{route('question.hide', {'id' : q.id})}}" class="btn btn-success">Скрыть</a>
 
-                                <form action="{{route('category.destroy', {'id' : c.id})}}" method="post" accept-charset="utf-8">
+                                <form action="{{route('question.destroy', {'id' : q.id})}}" method="post" accept-charset="utf-8">
                                     {{ method_field('delete') }}
                                     <input type="hidden" name="id" value="{{user.id}}">      
                                     <input type="submit" class="btn btn-danger" name="submit" value="Удалить">

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-
-        return view('category.index', [
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -28,20 +21,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if ($request->has('submit')) {
-
-            Category::create([
-                'title' => $request->title,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-
-            return redirect()->route('category.index');
-        }
-
-        return view('category.create');
+        //
     }
 
     /**
@@ -72,20 +54,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        $c = Category::find($id);
-
-        if ($request->has('submit')) {
-            $c->update([
-                'title' => $request->title,
-                'updated_at' => Carbon::now(),
-            ]);
-
-            return redirect()->route('category.index');
-        }
-
-        return view('category.edit', ['c' => $c]); 
+        //
     }
 
     /**
@@ -108,10 +79,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $c = Category::find($id);
-
-        $c->delete();
-
-        return redirect()->route('category.index');
+        //
     }
 }

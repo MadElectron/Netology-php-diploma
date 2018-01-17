@@ -25,8 +25,12 @@
                             <th>id</th>
                             <th>Название</th>
                             <th>Вопросов</th>
+                            {# <th scope="colgroup">Всего</th> #}
                             <th>Скрытых</th>
-                            <th>Неотвеченных</th>
+                            <th>Неотвеченных</th>        
+                        </tr>
+                        <tr>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +38,7 @@
                         <tr>
                             <td>{{loop.index}}</td>
                             <td>{{c.id}}</td>
-                            <td><a href="{{route('question.index_by_category', {'id' : c.id})}}">{{c.title}}</a></td>
+                            <td>{{c.title}}</td>
                             <td>{{c.answers|length}}</td>
                             <td></td>
                             <td></td>
