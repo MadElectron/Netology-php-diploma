@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnswersTable extends Migration
+class AddQuestionStatusConstraint extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('question_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->string('content');
-            $table->timestamps();
+        Schema::table('questions', function (Blueprint $table) {
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropForeign(['status_id']);
+        });
     }
 }

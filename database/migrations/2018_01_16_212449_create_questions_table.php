@@ -17,11 +17,11 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->string('author_name');
             $table->string('author_email');
-            $table->integer('category')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->string('content');
-            $table->integer('status');
+            $table->integer('status_id')->unsigned();
             $table->timestamps();
-            $table->foreign('category')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

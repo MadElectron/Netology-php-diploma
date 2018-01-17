@@ -4,12 +4,13 @@
 
 {% block content %}
 <div class="container">
-    <h2>Задать вопрос</h2> 
+    <h2>Ответить на вопрос</h2> 
+    <p><strong>Id{{q.id}}:</strong> {{q.content}}</p>
     <hr>
     <form method="get" action="" accept-charset="utf8">
-        <input type="text" name="name" value="" placeholder="Ваше имя">
-        <input type="email" name="email" value="" placeholder="Ваш E-mail">
-        <textarea name="content" value="" placeholder="Содержание вопроса" id="form_title" required></textarea>
+        <input type="hidden" name="qid" value="{{q.id}}">
+        <textarea name="content" value="" placeholder="Содержание ответа" id="form_title" required></textarea>
+        <label><input type="checkbox" name="hide" value="1"> Скрыть вопрос</label>
         <input type="submit" name="submit" value="Отправить" class="btn btn-success">
     </form>
 </div>   

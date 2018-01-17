@@ -17,15 +17,19 @@
                 <h2>Панель администратора</h2>
                 <hr>
                 <h3>Вопросы</h3>
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>№ п/п</th>
                             <th>id</th>
                             <th>Содержание</th>
+                            <th>Категория</th>
                             <th>Автор</th>
                             <th>Создан</th>
                             <th>Статус</th>
+                            <th>Ответ</th>
+                            <th>Ответил</th>
                             <th></th>        
                         </tr>
                         <tr>
@@ -38,14 +42,25 @@
                             <td>{{loop.index}}</td>
                             <td>{{q.id}}</td>
                             <td>{{q.content}}</td>
+                            <td>{{q.category.title}}</td>
                             <td>{{q.author_name}} (<a href="mailto:{{q.author_email}}">{{q.author_email}}</a>)</td>
                             <td>{{q.created_at|date('d.m.y')}}</td>
-                            <td>{{q.status}}</td>
+                            <td>{{q.status.title}}</td>
                             <td>
-                                <a href="{{route('question.hide', {'id' : q.id})}}" class="btn btn-success">Скрыть</a>
+                                {% if q.answer %}
+                                    {{q.answer.content}}
+                                {% else %}
+                                    <a href="{{route('answer.create', {'id' : q.id})}}">Ответить</a>
+                                {% endif %}
+                            </td>
+                            <td>{{q.answer.user.name}}</td>
+                            <td>
+                                <a href="{{route('question.hide', {'id' : q.id})}}" class="btn btn-primary">{{q.status.id == 3 ? 'Открыть' : 'Скрыть'}}</a>
+                                <a href="{{route('question.edit', {'id' : q.id})}}" class="btn btn-success">Редактировать</a>
 
                                 <form action="{{route('question.destroy', {'id' : q.id})}}" method="post" accept-charset="utf-8">
                                     {{ method_field('delete') }}
+                                    {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{user.id}}">      
                                     <input type="submit" class="btn btn-danger" name="submit" value="Удалить">
                                 </form>

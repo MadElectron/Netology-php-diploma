@@ -16,10 +16,10 @@
             <div class="col-md-10">
                 <h2>Панель администратора</h2>
                 <hr>
-                <h3>Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить пользователя"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> </h3>
+                <h3>Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить тему"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> </h3>
+
                 <table class="table table-striped">
                     <thead>
-                        <colgroup span="3"></colgroup>
                         <tr>
                             <th>№ п/п</th>
                             <th>id</th>
@@ -35,7 +35,7 @@
                             <td>{{loop.index}}</td>
                             <td>{{c.id}}</td>
                             <td><a href="{{route('question.index_by_category', {'id' : c.id})}}">{{c.title}}</a></td>
-                            <td>{{c.answers|length}}</td>
+                            <td>{{c.questions|length}}</td>
                             <td></td>
                             <td></td>
                             <td>
@@ -43,6 +43,7 @@
 
                                 <form action="{{route('category.destroy', {'id' : c.id})}}" method="post" accept-charset="utf-8">
                                     {{ method_field('delete') }}
+                                    {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{user.id}}">      
                                     <input type="submit" class="btn btn-danger" name="submit" value="Удалить">
                                 </form>

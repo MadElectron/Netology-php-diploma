@@ -41,6 +41,10 @@ form > * {
     margin-bottom: 5px;
 }
 
+textarea {
+    width: 80%;
+}
+
 
 /* ==== Login page ==== */
 

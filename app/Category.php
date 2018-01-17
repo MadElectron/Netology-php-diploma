@@ -19,4 +19,13 @@ class Category extends Model
     {
         return $this->hasMany('App\Question');
     }
+
+    public function delete()
+    {
+        foreach($this->questions as $q) {
+            $q->delete();
+        }
+
+        parent::delete();
+    }
 }

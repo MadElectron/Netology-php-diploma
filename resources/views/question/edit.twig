@@ -1,13 +1,33 @@
 {% extends 'base.twig' %}
 
-{% block title %}Новая тема{% endblock %}
+{% block title %}Редактировать вопрос{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2>Редактировать тему</h2> 
+    <h2>Редактировать вопрос</h2> 
     <hr>
         <form method="get" action="" accept-charset="utf8">
-        <textarea name="title" value="" placeholder="Название темы" id="form_title" required>{{c.title}}</textarea>
+        <label>Автор</label>
+        <input type="text" name="name" value="{{q.author_name}}" placeholder="Имя автора" required>
+        <input type="email" name="email" value="{{q.author_email}}" placeholder="E-mail автора" required>            
+        
+        <label>Вопрос</label>
+        <select name="category">
+            <option value="" disabled>Выберите тему</option>
+
+            {% for c in categories %}
+                <option value="{{c.id}}" {{c.id == q.category.id ? 'selected' : ''}} >{{c.title}}</option>
+            {% endfor %}
+        </select>
+        <label>
+            <input type="checkbox" name="status" value="1" {{q.status.id == 3 ? 'checked' : ''}}>
+            Скрыт
+        </label>  
+        <textarea name="qcontent" value="" placeholder="Содержание вопроса" required>{{q.content}}</textarea>
+        
+        <label>Ответ</label>
+        <textarea name="acontent" value="" placeholder="Содержание ответа" required>{{q.answer.content}}</textarea>
+
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
     </form>
 </div>   

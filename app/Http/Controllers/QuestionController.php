@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Status;
 use App\Question;
 
 use Carbon\Carbon;
@@ -49,17 +50,18 @@ class QuestionController extends Controller
 
         if ($request->has('submit')) {
 
+
             Question::create([
                 'author_name' => $request->name,
                 'author_email' => $request->email,
-                'category' => $request->category,
+                'category_id' => $request->category,
                 'content' => $request->content,
-                'status' => 2,
+                'status_id' => 2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
 
-            return redirect()->route('question.index');
+            return redirect()->route('index');
         }
 
         return view('question.create', [
@@ -95,9 +97,40 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $q = Question::find($id);
+        $categories = Category::all();
+
+        if ($request->has('submit')) {
+
+            if ($request->status) {
+                $status = 3;
+            } elseif ($q->answer) {
+                $status = 1;
+            } else $status = 2;
+
+            $q->update([
+                'author_name' => $request->name,
+                'author_email' => $request->email,
+                'category_id' => $request->category,
+                'content' => $request->qcontent,
+                'status_id' => $status,
+                'updated_at' => Carbon::now(),
+            ]);
+
+            $q->answer->update([
+                'content' => $request->acontent,
+                'updated_at' => Carbon::now(),
+            ]);
+
+            return redirect()->route('question.index');
+        }
+
+        return view('question.edit', [
+            'q' => $q, 
+            'categories' => $categories,
+        ]); 
     }
 
     /**
@@ -120,7 +153,11 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $q = Question::find($id);
+
+        $q->delete();
+
+        return redirect()->route('question.index');
     }
 
     /**
@@ -131,9 +168,22 @@ class QuestionController extends Controller
      */
     public function hide($id)
     {
-        $user = Question::find($id);
+        $q = Question::find($id);
 
-        $user->delete();
+        // if not hidden hide (3)
+        // else if has answer  then publish (2)
+        // else set pending (1)
+
+        if ($q->status->id != 3) {
+            $status = 3;
+        } elseif ($q->answer) {
+            $status = 1;
+        } else $status = 2;
+
+        $q->update([
+            'status_id' => $status,
+            'updated_at' => Carbon::now(),
+        ]);
 
         return redirect()->route('question.index');
     }

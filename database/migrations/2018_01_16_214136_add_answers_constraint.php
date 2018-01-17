@@ -14,7 +14,8 @@ class AddAnswersConstraint extends Migration
     public function up()
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->foreign('question')->references('id')->on('questions');
+            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,7 +27,8 @@ class AddAnswersConstraint extends Migration
     public function down()
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->dropForeign(['question']);
+            $table->dropForeign(['question_id']);
+            $table->dropForeign(['user_id']);
         });
     }
 }

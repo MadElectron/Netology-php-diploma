@@ -9,9 +9,9 @@ class Question extends Model
     protected $fillable = [
         'author_name',
         'author_email',
-        'category',
+        'category_id',
         'content',
-        'status'
+        'status_id'
     ];
 
     public function category()
@@ -19,8 +19,13 @@ class Question extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function answer()
+    {
+        return $this->hasOne('App\Answer');
+    }
+
     public function status()
     {
-        return $this->hasOne('App\Status');
+        return $this->belongsTo('App\Status');
     }
 }
