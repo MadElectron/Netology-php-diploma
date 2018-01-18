@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->string('author_name');
             $table->string('author_email');
             $table->integer('category_id')->unsigned();
-            $table->string('content');
+            $table->text('content');
             $table->integer('status_id')->unsigned();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');

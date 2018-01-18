@@ -19,13 +19,39 @@ body {
     margin: 0 auto;
 }
 
+/* a:not(:focus) {
+   color: #0082BA; 
+}
+ */
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover 
+{
+    background-color: #0082BA;
+}
+
+
 header {
-    color: #fff;
     background: #0082BA;
+}
+
+header a, header a:hover, header a:focus {
+    color: #fff;
+    text-decoration: none;
 }
 
 header h1 {
     font-weight: bold;
+}
+
+.navbar-nav > li > a {
+    line-height: 40px;
+    height: 70px;
+    font-weight: bold;
+}
+
+.navbar-nav > li > a:hover {
+    background: rgba(255,255,255,0.2);
 }
 
 footer {
@@ -43,6 +69,10 @@ form > * {
 
 textarea {
     width: 80%;
+}
+
+.btn-panel {
+    padding:  20px 0;
 }
 
 

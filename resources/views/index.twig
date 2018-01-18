@@ -6,11 +6,33 @@
 <div class="container">
     
     <div class="row">
-        <div class="col-md-2 aside">
-            <h2>Темы</h2>    
+        <div class="col-md-3 aside">
+            <h3>Темы</h3>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                {% for c in categories %}
+                    <li {{ c.id == category.id ? 'class="active"'}}><a href="{{route('index.category', {'id' : c.id})}}">{{c.title}}</a></li>
+                {% endfor %}
+            </ul>
+            <hr>
+            
         </div>
-        <div class="col-md-10">
-            <h2>Название темы</h2>
+        <div class="col-md-9">
+            <div class="btn-panel">
+                <a class="btn btn-success" href="{{route('question.create')}}">Задать вопрос</a>
+            </div>      
+{#             <h3>{{category.title}}</h3>
+            <hr> #}
+            {% for q in category.questionsPublished %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" >{{q.content}}</h3>
+                </div>
+                <div class="panel-body">
+                   {{q.answer.content}}
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 

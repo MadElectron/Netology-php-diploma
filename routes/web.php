@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', 'IndexController@index')->name('index');
+Route::get('/index/{id}', 'IndexController@indexCategory')->name('index.category');
 
 // Auth::routes();
 

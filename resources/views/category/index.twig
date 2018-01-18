@@ -1,59 +1,40 @@
-{% extends 'base.twig' %}
+{% extends 'menu_page.twig' %}
 
-{% block title %}Панель администратора{% endblock %}
+{% block subtitle %}Темы{% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 aside">
-                <h3>Меню</h3>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="">Пользователи</a></li>
-                    <li class="active"><a href="">Темы</a></li>
-                    <li><a href="">Вопросы</a></li>                    
-                </ul>
-            </div>
-            <div class="col-md-10">
-                <h2>Панель администратора</h2>
-                <hr>
-                <h3>Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить тему"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> </h3>
+{% block inner_content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>№ п/п</th>
+                <th>id</th>
+                <th>Название</th>
+                <th>Вопросов</th>
+                <th>Скрытых</th>
+                <th>Неотвеченных</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in categories %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{c.id}}</td>
+                <td><a href="{{route('question.index_by_category', {'id' : c.id})}}">{{c.title}}</a></td>
+                <td>{{c.questions|length}}</td>
+                <td>{{c.questionsHidden|length}}</td>
+                <td>{{c.questionsPending|length}}</td>
+                <td>
+                    <a href="{{route('category.edit', {'id' : c.id})}}" class="btn btn-success">Редактировать</a>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>№ п/п</th>
-                            <th>id</th>
-                            <th>Название</th>
-                            <th>Вопросов</th>
-                            <th>Скрытых</th>
-                            <th>Неотвеченных</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for c in categories %}
-                        <tr>
-                            <td>{{loop.index}}</td>
-                            <td>{{c.id}}</td>
-                            <td><a href="{{route('question.index_by_category', {'id' : c.id})}}">{{c.title}}</a></td>
-                            <td>{{c.questions|length}}</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a href="{{route('category.edit', {'id' : c.id})}}" class="btn btn-success">Редактировать</a>
-
-                                <form action="{{route('category.destroy', {'id' : c.id})}}" method="post" accept-charset="utf-8">
-                                    {{ method_field('delete') }}
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="id" value="{{user.id}}">      
-                                    <input type="submit" class="btn btn-danger" name="submit" value="Удалить">
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>      
+                    <form action="{{route('category.destroy', {'id' : c.id})}}" method="post" accept-charset="utf-8">
+                        {{ method_field('delete') }}
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{user.id}}">      
+                        <input type="submit" class="btn btn-danger" name="submit" value="Удалить">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}   

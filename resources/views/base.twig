@@ -10,10 +10,23 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>FAQ</h1>
-        </div>
+        {# <div class="container"> #}
+            {# <h1>FAQ</h1> #}
+        {# </div> #}
+        <nav class="navbar">
+            <div class="container container-fluid">
+                <div class="navbar-header">
+                    <h1><a href="{{route('index')}}">FAQ</a></h1>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{route('home')}}">Войти</a></li>
+                </ul>
+            </div> 
+        </nav>
     </header>
+
+</nav>
     
     {% block content %}
     {% endblock %}
@@ -26,5 +39,6 @@
 </body>
 </html>
 {% block javascripts %}
+    <script src="/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
     <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8" async defer></script>
 {% endblock %}

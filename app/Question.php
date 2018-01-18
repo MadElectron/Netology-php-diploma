@@ -28,4 +28,13 @@ class Question extends Model
     {
         return $this->belongsTo('App\Status');
     }
+
+    public function delete()
+    {
+        if ($this->answer) {
+            $this->answer->delete();
+        }
+
+        parent::delete();
+    }
 }

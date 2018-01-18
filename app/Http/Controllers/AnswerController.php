@@ -108,6 +108,17 @@ class AnswerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $a = Answer::find($id);
+
+        if ($a->question->status->id == 1){
+            $a->question->update([
+                'status_id' => 2,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        $a->delete();
+
+        return redirect()->route('question.index');
     }
 }
