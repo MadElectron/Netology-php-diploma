@@ -14,16 +14,22 @@
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/index/{id}', 'IndexController@indexCategory')->name('index.category');
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resources([
-    'user' => 'UserController',
-    'category' => 'CategoryController',
-    'question' => 'QuestionController',
-    'answer' => 'AnswerController',
-]);
+Route::resource('user', 'UserController', ['except' => [
+    'store', 'show', 'update',
+]]);
+Route::resource('category', 'CategoryController', ['except' => [
+    'store', 'show', 'update',
+]]);
+Route::resource('question', 'QuestionController', ['except' => [
+    'store', 'show', 'update',
+]]);
+Route::resource('answer', 'AnswerController', ['except' => [
+    'store', 'show', 'edit', 'update',
+]]);
 
 Route::get('/question/category/{id}', 'QuestionController@indexByCategory')->name('question.index_by_category');
 

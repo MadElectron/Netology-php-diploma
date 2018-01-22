@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -34,8 +33,6 @@ class CategoryController extends Controller
 
             Category::create([
                 'title' => $request->title,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('category.index');
@@ -79,7 +76,6 @@ class CategoryController extends Controller
         if ($request->has('submit')) {
             $c->update([
                 'title' => $request->title,
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('category.index');

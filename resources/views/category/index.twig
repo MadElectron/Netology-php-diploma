@@ -1,6 +1,8 @@
 {% extends 'menu_page.twig' %}
 
-{% block subtitle %}Темы{% endblock %}
+{% block subtitle %}
+    Темы <a href="{{route('category.create')}}" class="btn btn-success" title="Добавить тему"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+{% endblock %}
 
 {% block inner_content %}
     <table class="table table-striped">

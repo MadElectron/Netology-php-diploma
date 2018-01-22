@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -36,8 +36,6 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('home');
@@ -81,7 +79,6 @@ class UserController extends Controller
         if ($request->has('submit')) {
             $user->update([
                 'password' => bcrypt($request->password),
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('home');

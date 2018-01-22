@@ -6,7 +6,6 @@ use App\Category;
 use App\Status;
 use App\Question;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -59,8 +58,6 @@ class QuestionController extends Controller
                 'category_id' => $request->category,
                 'content' => $request->content,
                 'status_id' => 2,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('index');
@@ -118,12 +115,10 @@ class QuestionController extends Controller
                 'category_id' => $request->category,
                 'content' => $request->qcontent,
                 'status_id' => $status,
-                'updated_at' => Carbon::now(),
             ]);
 
             $q->answer->update([
                 'content' => $request->acontent,
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('question.index');
@@ -173,18 +168,19 @@ class QuestionController extends Controller
         $q = Question::find($id);
 
         // if not hidden hide (3)
-        // else if has answer  then publish (2)
-        // else set pending (1)
+        // else if has answer then publish (1)
+        // else set pending (2)
 
         if ($q->status->id != 3) {
             $status = 3;
         } elseif ($q->answer) {
             $status = 1;
-        } else $status = 2;
+        } else {
+            $status = 2;
+        }
 
         $q->update([
             'status_id' => $status,
-            'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('question.index');

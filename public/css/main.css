@@ -12,6 +12,11 @@ body {
     /* font-family: Arial, sans-serif; */
 }
 
+.wrapper {
+    position: relative;
+    min-height: 100%;
+}
+
 .container {
     position: relative;
     height: 100%;    
@@ -55,9 +60,9 @@ header h1 {
 }
 
 footer {
-    position: absolute
+    position: absolute;
     width: 100%;
-    padding-top: 64px;
+    padding-top: 24px;
     bottom: 0;
     background-color: #f8f8f8;
 }

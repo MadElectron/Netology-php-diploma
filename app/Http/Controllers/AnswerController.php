@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Question;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -36,23 +35,18 @@ class AnswerController extends Controller
                 'user_id' => 1, 
                 'question_id' => $request->qid,
                 'content' => $request->content,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
 
             $status = $request->hide ? 3 : 1;
 
             Question::find($request->qid)->update([
                 'status_id' => $status,
-                'updated_at' => Carbon::now(),
             ]);
 
             return redirect()->route('question.index');
         }
 
-        return view('answer.create', [
-            'q' => $q,
-        ]);        
+        return view('answer.create', compact('q'));        
     }
 
     /**
@@ -110,10 +104,9 @@ class AnswerController extends Controller
     {
         $a = Answer::find($id);
 
-        if ($a->question->status->id == 1){
+        if ($a->question->status->id == 1) {
             $a->question->update([
                 'status_id' => 2,
-                'updated_at' => Carbon::now(),
             ]);
         }
 
