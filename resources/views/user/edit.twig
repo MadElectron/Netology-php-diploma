@@ -6,8 +6,10 @@
 <div class="container">
     <h2>Изменить пароль</h2> 
     <hr>
-    <form method="get" action="" accept-charset="utf8">
-        <input type="password" name="password" value="{{user.password}}" placeholder="Пароль" id="form_password" required>
+    <form method="post" action="{{route('user.update', {'id' : user.id})}}" accept-charset="utf8">
+        {{ csrf_field() }}
+        {{ method_field('put') }}
+        <input type="password" name="password" value="" placeholder="Пароль" id="form_password" required>
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
     </form>
 </div>   

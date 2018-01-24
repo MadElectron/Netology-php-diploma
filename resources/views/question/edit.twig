@@ -6,7 +6,10 @@
 <div class="container">
     <h2>Редактировать вопрос</h2> 
     <hr>
-        <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('question.update', {'id' : q.id})}}" accept-charset="utf8">
+        {{ csrf_field() }}
+        {{ method_field('patch') }}
+
         <label>Автор</label>
         <input type="text" name="name" value="{{q.author_name}}" placeholder="Имя автора" required>
         <input type="email" name="email" value="{{q.author_email}}" placeholder="E-mail автора" required>            
@@ -26,7 +29,7 @@
         <textarea name="qcontent" value="" placeholder="Содержание вопроса" required>{{q.content}}</textarea>
         
         <label>Ответ</label>
-        <textarea name="acontent" value="" placeholder="Содержание ответа" required>{{q.answer.content}}</textarea>
+        <textarea name="acontent" value="" placeholder="Содержание ответа">{{q.answer.content}}</textarea>
 
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
     </form>

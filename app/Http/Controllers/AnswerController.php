@@ -6,6 +6,7 @@ use App\Answer;
 use App\Question;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -35,24 +36,6 @@ class AnswerController extends Controller
     {
         $q = Question::find($request->id);
 
-        if ($request->has('submit')) {
-
-            // @TODO:  get current user id
-            Answer::create([
-                'user_id' => 1, 
-                'question_id' => $request->qid,
-                'content' => $request->content,
-            ]);
-
-            $status = $request->hide ? 3 : 1;
-
-            Question::find($request->qid)->update([
-                'status_id' => $status,
-            ]);
-
-            return redirect()->route('question.index');
-        }
-
         return view('answer.create', compact('q'));        
     }
 
@@ -64,7 +47,21 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        
+        Answer::create([
+            'user_id' => $user->id, 
+            'question_id' => $request->qid,
+            'content' => $request->content,
+        ]);
+
+        $status = $request->hide ? 3 : 1;
+
+        Question::find($request->qid)->update([
+            'status_id' => $status,
+        ]);
+
+        return redirect()->route('question.index');
     }
 
     /**

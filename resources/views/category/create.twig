@@ -6,7 +6,8 @@
 <div class="container">
     <h2>Новая тема</h2> 
     <hr>
-    <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('category.store')}}" accept-charset="utf8">
+        {{ csrf_field() }}
         <textarea name="title" value="" placeholder="Название темы" id="form_title" required></textarea>
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
     </form>

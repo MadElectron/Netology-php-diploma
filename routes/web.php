@@ -19,17 +19,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('user', 'UserController', ['except' => [
-    'store', 'show', 'update',
-]]);
-Route::resource('category', 'CategoryController', ['except' => [
-    'store', 'show', 'update',
-]]);
-Route::resource('question', 'QuestionController', ['except' => [
-    'store', 'show', 'update',
-]]);
+Route::resource('user', 'UserController', ['except' => ['show']]);
+Route::resource('category', 'CategoryController', ['except' => ['show']]);
+Route::resource('question', 'QuestionController', ['except' => ['show']]);
 Route::resource('answer', 'AnswerController', ['except' => [
-    'store', 'show', 'edit', 'update',
+    'index', 'show', 'edit', 'update',
 ]]);
 
 

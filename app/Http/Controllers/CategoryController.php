@@ -33,17 +33,8 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if ($request->has('submit')) {
-
-            Category::create([
-                'title' => $request->title,
-            ]);
-
-            return redirect()->route('category.index');
-        }
-
         return view('category.create');
     }
 
@@ -55,7 +46,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -75,17 +70,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $c = Category::find($id);
-
-        if ($request->has('submit')) {
-            $c->update([
-                'title' => $request->title,
-            ]);
-
-            return redirect()->route('category.index');
-        }
 
         return view('category.edit', ['c' => $c]); 
     }
@@ -99,7 +86,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $c = Category::find($id);
+        
+        $c->update([
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('category.index');
     }
 
     /**

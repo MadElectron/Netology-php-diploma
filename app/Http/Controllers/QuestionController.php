@@ -51,23 +51,9 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $categories = Category::all();
-
-        if ($request->has('submit')) {
-
-
-            Question::create([
-                'author_name' => $request->name,
-                'author_email' => $request->email,
-                'category_id' => $request->category,
-                'content' => $request->content,
-                'status_id' => 2,
-            ]);
-
-            return redirect()->route('index');
-        }
 
         return view('question.create', [
             'categories' => $categories
@@ -82,7 +68,15 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Question::create([
+            'author_name' => $request->name,
+            'author_email' => $request->email,
+            'category_id' => $request->category,
+            'content' => $request->content,
+            'status_id' => 2,
+        ]);
+
+        return redirect()->route('index');
     }
 
     /**
@@ -102,33 +96,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $q = Question::find($id);
         $categories = Category::all();
-
-        if ($request->has('submit')) {
-
-            if ($request->status) {
-                $status = 3;
-            } elseif ($q->answer) {
-                $status = 1;
-            } else $status = 2;
-
-            $q->update([
-                'author_name' => $request->name,
-                'author_email' => $request->email,
-                'category_id' => $request->category,
-                'content' => $request->qcontent,
-                'status_id' => $status,
-            ]);
-
-            $q->answer->update([
-                'content' => $request->acontent,
-            ]);
-
-            return redirect()->route('question.index');
-        }
 
         return view('question.edit', [
             'q' => $q, 
@@ -145,7 +116,32 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $q = Question::find($id);
+
+        if ($request->status) {
+            $status = 3;
+        } elseif ($q->answer) {
+            $status = 1;
+        } else {
+            $status = 2;
+        }
+
+        $q->update([
+            'author_name' => $request->name,
+            'author_email' => $request->email,
+            'category_id' => $request->category,
+            'content' => $request->qcontent,
+            'status_id' => $status,
+        ]);
+
+        if ($q->answer) {
+            $q->answer->update([
+                'content' => $request->acontent,
+            ]);
+        }
+        
+
+        return redirect()->route('question.index');
     }
 
     /**

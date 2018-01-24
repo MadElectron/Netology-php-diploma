@@ -33,19 +33,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if ($request->has('submit')) {
-
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
-
-            return redirect()->route('home');
-        }
-
         return view('user.create');
     }
 
@@ -57,7 +46,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -77,19 +72,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $user = User::find($id);
 
-        if ($request->has('submit')) {
-            $user->update([
-                'password' => bcrypt($request->password),
-            ]);
-
-            return redirect()->route('home');
-        }
-
-        return view('user.edit');   
+        return view('user.edit', [
+            'user' => $user
+        ]);   
     }
 
     /**
@@ -101,7 +90,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-     
+        $user = User::find($id);
+
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('user.index');
     }
 
     /**

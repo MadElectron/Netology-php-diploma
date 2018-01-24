@@ -6,7 +6,8 @@
 <div class="container">
     <h2>Задать вопрос</h2> 
     <hr>
-    <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('question.store')}}" accept-charset="utf8">
+        {{ csrf_field() }}
         <input type="text" name="name" value="" placeholder="Ваше имя" required>
         <input type="email" name="email" value="" placeholder="Ваш E-mail" required>
         <select name="category"required>

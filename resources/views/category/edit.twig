@@ -6,7 +6,9 @@
 <div class="container">
     <h2>Редактировать тему</h2> 
     <hr>
-        <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('category.update', {'id' : c.id})}}" accept-charset="utf8">
+        {{ csrf_field() }}
+        {{ method_field('put') }}
         <textarea name="title" value="" placeholder="Название темы" required>{{c.title}}</textarea>
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success">
     </form>

@@ -7,7 +7,8 @@
     <h2>Ответить на вопрос</h2> 
     <p><strong>Id{{q.id}}:</strong> {{q.content}}</p>
     <hr>
-    <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('answer.store')}}" accept-charset="utf8">
+        {{csrf_field()}}
         <input type="hidden" name="qid" value="{{q.id}}">
         <textarea name="content" value="" placeholder="Содержание ответа" id="form_title" required></textarea>
         <label><input type="checkbox" name="hide" value="1"> Скрыть вопрос</label>

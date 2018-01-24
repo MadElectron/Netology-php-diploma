@@ -6,7 +6,8 @@
 <div class="container">
     <h2>Новый пользователь</h2> 
     <hr>
-    <form method="get" action="" accept-charset="utf8">
+    <form method="post" action="{{route('user.store')}}" accept-charset="utf8">
+        {{ csrf_field() }}
         <input type="text" name="name" value="" placeholder="Имя пользователя" id="form_name" required>
         <input type="email" name="email" value="" placeholder="E-mail" id="form_email" required>
         <input type="password" name="password" value="" placeholder="Пароль" id="form_password" required>
