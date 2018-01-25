@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -41,9 +43,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create([
+        $c = Category::create([
             'title' => $request->title,
         ]);
+
+        Log::info(Auth::user()->name." создал тему \"{$c->title}\" ({$c->id})");
 
         return redirect()->route('category.index');
     }
@@ -87,6 +91,8 @@ class CategoryController extends Controller
             'title' => $request->title,
         ]);
 
+        Log::info(Auth::user()->name." изменил тему \"{$c->title}\" ({$c->id})");
+
         return redirect()->route('category.index');
     }
 
@@ -101,6 +107,8 @@ class CategoryController extends Controller
         $c = Category::find($id);
 
         $c->delete();
+
+        Log::info(Auth::user()->name." удалил тему \"{$c->title}\" ({$c->id})");
 
         return redirect()->route('category.index');
     }

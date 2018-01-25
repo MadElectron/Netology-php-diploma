@@ -7,6 +7,8 @@ use App\Status;
 use App\Question;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -55,6 +57,7 @@ class QuestionController extends Controller
     {
         $categories = Category::all();
 
+
         return view('question.create', [
             'categories' => $categories
         ]);
@@ -68,13 +71,15 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        Question::create([
+        $q = Question::create([
             'author_name' => $request->name,
             'author_email' => $request->email,
             'category_id' => $request->category,
             'content' => $request->content,
             'status_id' => 2,
         ]);
+
+        Log::info("{$q->author_name} ({$q->author_email}) задал вопрос \"{$q->content}\" ({$q->id})");
 
         return redirect()->route('index');
     }
@@ -140,6 +145,7 @@ class QuestionController extends Controller
             ]);
         }
         
+        Log::info(Auth::user()->name." изменил вопрос \"{$q->content}\" ({$q->id})");
 
         return redirect()->route('question.index');
     }
@@ -155,6 +161,8 @@ class QuestionController extends Controller
         $q = Question::find($id);
 
         $q->delete();
+
+        Log::info(Auth::user()->name." удалил вопрос \"{$q->content}\" ({$q->id})");
 
         return redirect()->route('question.index');
     }
@@ -184,6 +192,8 @@ class QuestionController extends Controller
         $q->update([
             'status_id' => $status,
         ]);
+
+        Log::info(Auth::user()->name." скрыл вопрос \"{$q->content}\" ({$q->id})");
 
         return redirect()->route('question.index');
     }

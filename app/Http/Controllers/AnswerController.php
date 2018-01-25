@@ -7,6 +7,7 @@ use App\Question;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AnswerController extends Controller
 {
@@ -44,7 +45,7 @@ class AnswerController extends Controller
     {
         $user = Auth::user();
         
-        Answer::create([
+        $a = Answer::create([
             'user_id' => $user->id, 
             'question_id' => $request->qid,
             'content' => $request->content,
@@ -52,9 +53,11 @@ class AnswerController extends Controller
 
         $status = $request->hide ? 3 : 1;
 
-        Question::find($request->qid)->update([
+       $a->question->update([
             'status_id' => $status,
         ]);
+
+        Log::info(Auth::user()->name." добавил ответ ({$a->id}) на вопрос \"{$a->question->content}\" ({$a->question->id})");
 
         return redirect()->route('question.index');
     }
@@ -110,6 +113,8 @@ class AnswerController extends Controller
         }
 
         $a->delete();
+
+        Log::info(Auth::user()->name." удалил ответ ({$a->id}) на вопрос \"{$a->question->content}\" ({$a->question->id})");
 
         return redirect()->route('question.index');
     }

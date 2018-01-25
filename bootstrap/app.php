@@ -41,6 +41,18 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->configureMonologUsing(function($monolog) {
+    $infoStreamHandler = new Monolog\Handler\StreamHandler( storage_path("/logs/actions.log"), Monolog\Logger::INFO, false);
+    $monolog->pushHandler($infoStreamHandler);
+
+    $infoStreamHandler = new Monolog\Handler\StreamHandler( storage_path("/logs/laravel.log"), Monolog\Logger::ERROR, false);
+    $monolog->pushHandler($infoStreamHandler);
+
+    $infoStreamHandler = new Monolog\Handler\StreamHandler( storage_path("/logs/laravel.log"), Monolog\Logger::WARNING, false);
+    $monolog->pushHandler($infoStreamHandler);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
