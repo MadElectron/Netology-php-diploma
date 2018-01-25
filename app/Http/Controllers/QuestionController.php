@@ -37,8 +37,8 @@ class QuestionController extends Controller
      */
     public function indexByCategory($id)
     {
-        $questions = Question::where(['category_id' => $id])->get();
         $c = Category::find($id);
+        $questions = $c->questions;
 
         return view('question.index', [
             'category' => $c,

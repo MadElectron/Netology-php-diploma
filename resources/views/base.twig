@@ -22,9 +22,11 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {% if currentUser %}
-                        <li><span class="user"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> {{currentUser.name}}</span></li>
                         <li>
-                            <form action="{{route('logout')}}" method="post" accept-charset="utf-8">
+                            <a href="{{route('home')}}"><i class="glyphicon glyphicon-user" aria-hidden="true" title="Войти"></i> {{currentUser.name}}</a>
+                        </li>
+                        <li>
+                            <form action="{{route('logout')}}" method="post" accept-charset="utf-8" title="Выйти">
                                 {{ csrf_field() }}
                                 <a href="javascript:;" onclick="parentNode.submit()">Выйти</a>
                         </form>
@@ -38,9 +40,11 @@
     </header>
 
 </nav>
-    
-    {% block content %}
-    {% endblock %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}        
+    </div>
+
     
     <footer>
         <div class="container">

@@ -47,7 +47,7 @@ class CategoriesTableSeeder extends Seeder
             foreach ($questions as $question => $answer) {
                 $qid = DB::table('questions')->insertGetId([
                     'author_name' => 'admin',
-                    'author_email' => 'admin@admin.ru',
+                    'author_email' => 'admin@admin.com',
                     'category_id' => $cid,
                     'content' => $question,
                     'status_id' => 1,
